@@ -307,10 +307,19 @@ body::after {
     border: 2px solid rgb(254,254,254,.2);
     margin-top: -36px;
     transition: all .3s linear;
+    cursor: pointer;
+}
 
+.about__block input:hover {
+    cursor: pointer;
+    border-color: rgb(254, 254, 254, .5);
+    box-shadow: 0 0 5px 5px rgb(244, 12, 171, .15), 
+    -5px -5px 5px 5px rgb(0, 0, 255, .15);
 }
 .about__block input:focus {
     border: 2px solid white;
+    box-shadow: 0 0 5px 5px rgb(244, 12, 171, .15), 
+    -5px -5px 5px 5px rgb(0, 0, 255, .15);
 }
 input::placeholder {
     color: white;
@@ -402,4 +411,11 @@ input::placeholder {
     .input4 {
         margin-left: 240px;
     }
+}
+
+.info {
+    width: 100%;
+    text-align: center;
+    margin: 10% 0;
+    padding: 0 10%;
 }
