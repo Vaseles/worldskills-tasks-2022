@@ -63,9 +63,26 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreuserRequest $request)
+    public function show($username)
     {
-        //
+        $user = User::where('username', $username)->first();
+
+        if ($user) {
+            return response()->json([
+                'username' => $user->username,
+                'registeredTimestamp' => $user->created_at,
+                'authoredGames' => [
+
+                ],
+                'highscores' => [],
+            ], 200);
+        } else {
+            return response()->json([
+                "status" => "not-found",     
+                "slug" => "Not found"
+            ], 404);
+        }
+        
     }
 
     /**

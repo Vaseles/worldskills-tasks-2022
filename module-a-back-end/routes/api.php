@@ -31,10 +31,15 @@ Route::prefix('/v1')->group(function () {
         });
     });
 
-//     Route::get('games', [GameController::class, 'index']);
+    Route::get('games', [GameController::class, 'index']);
+    Route::get('games/{slug}', [GameController::class, 'show']);
 
-//     Route::post('games', [GameController::class, 'create']);
-//     Route::pug('games/{slug}', [GameController::class, 'show']);
-//     Route::pug('games/{slug}', [GameController::class, 'change']);
-//     Route::pug('games/{slug}', [GameController::class, 'delete']);
+    Route::get('users/{slug}', [UserController::class, 'show']);
+
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('games', [GameController::class, 'create']);
+        Route::put('games/{slug}', [GameController::class, 'change']);
+        Route::delete('games/{slug}', [GameController::class, 'delete']);
+    });
 });
