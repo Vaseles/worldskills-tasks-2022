@@ -101,6 +101,7 @@
                 <div class="admin">
                     {{ $game['title'] }} -
                     {{ $game->description }} - 
+                    some
                 </div>
             @endforeach
         </div>

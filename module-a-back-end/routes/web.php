@@ -15,4 +15,5 @@ Route::prefix('/XX-module-a/admin')->group(function () {
 
     // home page
     Route::get('/', [AdminController::class, 'home']);
+    Route::get('/games/{slug}/delete', [AdminController::class, 'game_delete']);
 });

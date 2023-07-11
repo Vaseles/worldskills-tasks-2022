@@ -47,12 +47,21 @@ class GameController extends Controller
     }
 
 
-    //  ! show
+    // ! show
     public function show(Request $request, $slug) {
         if (Game::where('slug', $slug)->first()) {
             $game = Game::where('slug', $slug)->first();
 
-            return response()->json($game, 200);
+            return response()->json([
+                'slug' => $game->slug,
+                'title' => $game->title,
+                'description' => $game->description,
+                'thumbnail' => '',
+                'uploadTimestamp' => $game->uploadTimestamp,
+                'author' => $game->user->username,
+                'scoreCount' => 0,
+                'gamePath' => ''
+            ], 200);
         } else {
             return response()->json([
                 "status" => "not-found",     

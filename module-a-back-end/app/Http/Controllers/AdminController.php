@@ -38,4 +38,10 @@ class AdminController extends Controller
             'users' => User::all(),
         ]);
     }
+    public function game_delete($slug) {
+        $game = Game::where('slug', $slug)->first();
+        $game->delete();
+        
+        return response('/XX-module-a/admin');
+    }
 }
