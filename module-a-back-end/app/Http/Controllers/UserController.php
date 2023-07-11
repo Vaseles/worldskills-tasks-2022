@@ -2,26 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRequest;
 use App\Http\Requests\StoreuserRequest;
 use App\Http\Requests\UpdateuserRequest;
-use App\Models\user;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User as AuthUser;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Sign In
      */
-    public function index()
+    public function signin(AuthRequest $request)
     {
-        //
+        $request->validated($request->all());
+
+
+        if (User::where('username', $request->username)->first()) {
+            $user = User::where('username', $request->username)->first();
+
+            return response()->json([
+                'status' => 'success',
+                'token' => $user->createToken($user->username)->plainTextToken
+            ], 200);
+        } else {
+            return response()->json([
+                "status" => "invalid",
+                "message" => "Wrong username or password" 
+            ], 401);
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Sign Up
      */
-    public function create()
+    public function signup(AuthRequest $request)
     {
-        //
+        $request->validated($request->all());
+
+        if (User::where('username', $request->username)->first()) {
+            return response()->json([
+                'status' => 'invalid',
+                'message' => 'Username has been already taken'
+            ], 400);
+        }
+
+        $user = User::create([
+            'username' => $request->username,
+            'password' => $request->password
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'token' => $user->createToken($user->username)->plainTextToken
+        ], 201);
     }
 
     /**
@@ -35,9 +71,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(user $user)
+    public function signout(Request $request)
     {
-        //
+        Auth::user()->currentAccessToken()->delete();
+        return response()->json([
+            "status" => "success"
+        ], 200);
     }
 
     /**
