@@ -70,10 +70,10 @@
             gap: 2vw;
         }
         .page__left {
-            width: 50%;
+            width: 70%;
         }
         .page__right {
-            width: 50%;
+            width: 30%;
         }
         .admin {
             display: flex;
@@ -119,6 +119,18 @@
     </div>
     <div class="page">
         <div class="page__left">
+            <h2>Users</h2>
+            <div class="admin selected">
+                username - created - last login - profile - block - message
+            </div>
+            @foreach ($users as $user)
+                <div class="admin">
+                    {{ $user['username'] }} -
+                    {{ $user->created_at }} - 
+                    {{ $user->updated_at }} -
+                    <a href="/api/v1/users/{{ $user->username }}" >profile</a>
+                </div>
+            @endforeach
             <h2>Games</h2>
             <div class="admin selected">
                 title - description - thumbnail - links - delete
@@ -143,18 +155,6 @@
                     {{ $admin['username'] }} -
                     {{ $admin->created_at }} - 
                     {{ $admin->updated_at }}
-                </div>
-            @endforeach
-            <h2>Users</h2>
-            <div class="admin selected">
-                username - created - last login - profile
-            </div>
-            @foreach ($users as $user)
-                <div class="admin">
-                    {{ $user['username'] }} -
-                    {{ $user->created_at }} - 
-                    {{ $user->updated_at }} -
-                    <a href="/api/v1/users/{{ $user->username }}" >profile</a>
                 </div>
             @endforeach
         </div>

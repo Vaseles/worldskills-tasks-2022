@@ -29,7 +29,7 @@ class AdminController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect('/XX-module-a/admin');
+            return redirect('/XX-module-a/admin')->with('admin', $admin);
         } else {
             return view('login', ['message' => 'Username or password is incorrect!']);
         }

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
 
-            $table->boolean('isBlock');
-            $table->string('isBlock_message');
+            $table->boolean('isBlock')->default(false);
+            $table->string('isBlock_message')->default('');
             $table->rememberToken();
             $table->timestamps();
         });
