@@ -69,6 +69,12 @@
             color: red;
             cursor: pointer;
         }
+        p {
+            background-color: rgb(237, 31, 31);
+            color: #0a0a0a;
+            padding: 4px 10px;
+            border-radius: 10px
+        }
     </style>
 </head>
 <body>
@@ -88,7 +94,9 @@
                 placeholder="Enter your password"
                 required
             />
-            <p>{{ $message }}</p>
+            @if ($message != '')
+                <p>{{ $message }}</p>
+            @endif
             <button>Continue</button>
         </form>
     </div>

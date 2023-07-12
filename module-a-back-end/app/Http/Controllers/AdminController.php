@@ -19,10 +19,15 @@ class AdminController extends Controller
 
     // authorize
     public function auth(Request $request) {
-        if (Admin::where('username', $request->username)->where('password', $request->password)->first()) {
-            $admin = Admin::where('username', $request->username)->where('password', $request->password)->first();
+        $admin = Admin::where('username', $request->username)
+                ->where('password', $request->password)
+                ->first();
+
+        if ($admin) {
             $admin->updated_at = date('Y-m-d H:i:s');
             $admin->save();
+
+            $request->session()->regenerate();
 
             return redirect('/XX-module-a/admin');
         } else {

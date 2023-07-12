@@ -80,6 +80,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 10px;
+            row-gap: 6px;
             border-bottom: 1px solid rgb(254,254,254,.2);
             padding: 4px 4px;
             margin-bottom: 4px;
@@ -88,9 +89,34 @@
         .selected {
             background-color: rgb(255, 0, 0, .7)
         }
+        .page__title {
+            width: 100%;
+            display: flex;
+            padding: 2vh 4vw;
+            gap: 2vw;
+        }
+        .btn {
+            border: 1px solid rgb(255,255,255, .4);
+            color: rgb(254,254,254,.4);
+            padding: 6px 10px;
+            border-radius: 10px;
+            font-size: 20px;
+            transition: all .3s linear;
+            text-decoration: none;
+        }
+        .btn:hover {
+            border-color: red;
+            color: red;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    <div class="page__title">
+        @auth
+            Hi, 
+        @endauth
+    </div>
     <div class="page">
         <div class="page__left">
             <h2>Games</h2>
@@ -101,7 +127,9 @@
                 <div class="admin">
                     {{ $game['title'] }} -
                     {{ $game->description }} - 
-                    some
+                    thumbnail - 
+                    links - 
+                    <a href="/games/{slug}/delete" class="btn">del</a>
                 </div>
             @endforeach
         </div>
@@ -126,7 +154,7 @@
                     {{ $user['username'] }} -
                     {{ $user->created_at }} - 
                     {{ $user->updated_at }} -
-                    <a href="" >Go</a>
+                    <a href="/api/v1/users/{{ $user->username }}" >profile</a>
                 </div>
             @endforeach
         </div>
