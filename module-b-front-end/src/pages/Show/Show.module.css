@@ -2,3 +2,11 @@
     @apply border-2 border-gray-700 mt-2 mb-2 rounded-md ;
     height: 50vh;
 }
+
+/* SCORE */
+.score {
+    @apply flex justify-between items-center w-96 bg-gray-900 p-2 rounded-md mb-1 mt-1 transition-all delay-300 ease-linear
+}
+.score:hover {
+    @apply shadow-md shadow-red-600
+}

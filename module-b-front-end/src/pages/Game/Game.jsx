@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import styless from './Game.module.css'
 import styles from './../Auth/Auth.module.css'
 import { $axios } from '../../api';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/ui/Button/Button';
 
 const Game = () => {
   const {slug} = useParams()
+  const navigate = useNavigate()
   // set data
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -17,6 +18,10 @@ const Game = () => {
     document.title = game.title
     getGame()
   }, [])
+
+  useEffect(() => {
+    console.log(game.author)
+  }, [game])
 
    const getGame = () => {
     $axios.get(`/games/${slug}`)
@@ -30,14 +35,26 @@ const Game = () => {
 
    const changeTitle = (e) => {
     e.preventDefault()
+    $axios.put(`/games/${slug}`, {title: title, description: description})
+      .then((res) => {
+        console.log(res)
+      })
    }
 
    const changeDescription = (e) => {
     e.preventDefault()
+    $axios.put(`/games/${slug}`, {title: title, description: description})
+    .then((res) => {
+      console.log(res)
+    })
    }
 
    const deleteGame = (e) => {
     e.preventDefault()
+    $axios.delete(`/games/${slug}`)
+      .then((res) => {
+        navigate('/')
+      })
    }
 
   return (
@@ -55,13 +72,12 @@ const Game = () => {
             <Button onClick={changeTitle}>edit</Button>
           </form>
           <div className="buttons">
-            <img src='' alt='' />
+            <img src='' alt='' className='img' />
             <form action="">
           <textarea  
-            type="text"  
-            value={title}
-            onChange={e => setTitle(e.target.value)}></textarea>
-            <Button onClick={changeTitle}>edit</Button>
+            value={description}
+            onChange={e => setDescription(e.target.value)}></textarea>
+            <Button onClick={changeDescription}>edit</Button>
           </form>
           </div>
       </div>

@@ -10,6 +10,9 @@ const Home = () => {
     const [games, setGames] = useState([
 
     ]);
+    const [filter, setFilter] = useState('title')
+    const [desc, setDesc] = useState('asc')
+
 
     useEffect(() => {
         document.title = 'Discover Games'
@@ -17,8 +20,17 @@ const Home = () => {
         getGames()
     }, [])
 
+    useEffect(() => {
+        getGames()
+    }, [filter, desc])
+
     const getGames = () => {
-        $axios.get('/games')
+        $axios.get('/games', {
+            params: {
+                sortBy: filter,
+                sortDir:  desc
+            }
+        })
             .then((res) => {
                 console.log(res.data)
                 setGamesInfo(res.data)
@@ -29,7 +41,33 @@ const Home = () => {
 
   return (
     <div className='page'>
-        <div className={styles.page__filters}></div>
+        <div className={styles.page__filters}>
+            {gamesInfo? (
+                <>
+                    <span> {gamesInfo.totalElements} Games Available</span>
+                    <div className="">
+                        <div className="sort__game" >
+                            <label >title</label>
+                            <input 
+                                type="checkbox" 
+                                onChange={( ) => setFilter('title')}   />
+                        </div>
+                        <div className="sort__game" >
+                            <label >title</label>
+                            <input 
+                                type="checkbox" 
+                                onChange={( ) => setFilter('title')}   />
+                        </div>
+                        <div className="sort__game" >
+                            <label >title</label>
+                            <input 
+                                type="checkbox" 
+                                onChange={( ) => setFilter('title')}   />
+                        </div>
+                    </div>
+                </>
+            ): (<></>)}
+        </div>
         {games ? (
             <div className={styles.page__content}>
                 {games.map((game, index) => 

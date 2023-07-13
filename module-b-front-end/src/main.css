@@ -52,3 +52,11 @@ input {
 .page h3 {
     @apply text-xl;
 }
+
+/*  img */
+.img {
+    object-fit: cover;
+    min-width: 100px;
+    min-height: 100px;
+    @apply mr-4 bg-slate-950 rounded-md ml-4
+}

@@ -27,6 +27,7 @@ const Show = () => {
     $axios.get(`/games/${slug}/scores`)
         .then((res) => {
           console.log(res)
+          setScores(res.data.scores)
         })
    }
 
@@ -36,8 +37,19 @@ const Show = () => {
       <div className="buttons">
         <div className={styles.right}>
           <h3>Top 10  Leaderboard</h3>
-          {scores != [] ? (
-            <div></div>
+          {scores ? (
+            <div>
+              {scores ? (
+            <div className={styles.scores}>
+                {scores.map((score, index) => 
+                    <div className={styles.score} key={styles.score}>
+                        <h3># {index}  {score.username}</h3>
+                        <span>{score.score}</span>
+                    </div>    
+                )}
+            </div>
+        ) : (<p>Loading...</p>)}
+            </div>
           ): (<div>Not found....</div>)}
         </div>
         <div className={styles.left}>
