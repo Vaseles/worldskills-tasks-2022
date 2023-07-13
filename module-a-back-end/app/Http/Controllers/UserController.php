@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AuthRequest;
 use App\Http\Requests\StoreuserRequest;
 use App\Http\Requests\UpdateuserRequest;
+use App\Http\Resources\GameAuthorResource;
+use App\Http\Resources\ScoreAuthorResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User as AuthUser;
@@ -71,10 +73,8 @@ class UserController extends Controller
             return response()->json([
                 'username' => $user->username,
                 'registeredTimestamp' => $user->created_at,
-                'authoredGames' => [
-
-                ],
-                'highscores' => [],
+                'authoredGames' => GameAuthorResource::collection($user->games),
+                'highscores' => ScoreAuthorResource::collection($user->scores),
             ], 200);
         } else {
             return response()->json([

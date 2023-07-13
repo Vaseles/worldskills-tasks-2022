@@ -3,20 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GameRequest;
+use App\Http\Resources\GameResource;
 use App\Models\Game;
+use App\Models\GameVersion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
     public function index(Request $request) {
-        $games = Game::all();
+        $gamesQuery = Game::query();
+        $games_count = Game::all()->count();
+
+        $sortDir = 'asc';
+        $sortBy = 'title';
+
+        if ($request->sortDir == 'desc') {
+            $sortDir = $request->sortDir;
+        }
+
+        if ($request->sortBy == 'popular') {
+            $sortBy = 'updated_at';
+        } else if ($request->sortBy == 'uploaddate') {
+            $sortBy = 'created_at';
+        }
+
+        $gamesQuery->orderBy($sortBy, $sortDir);
+
+        $games = $gamesQuery->paginate(10);
 
         return response()->json([
-            'page'=> 0,
-            'size'=> 10,
-            'totalElements' => 15,
-            'content' => $games
+            'page'=> $games->currentPage(),
+            'size'=> $games->count(),
+            'totalElements' => $games_count,
+            'content' => GameResource::collection($games)
         ], 200);
     }
     
@@ -49,18 +69,33 @@ class GameController extends Controller
 
     // ! show
     public function show(Request $request, $slug) {
-        if (Game::where('slug', $slug)->first()) {
-            $game = Game::where('slug', $slug)->first();
+        $game = Game::where('slug', $slug)->first();
+
+        if ($game) {
+            $game_version = GameVersion::where('game_id', $game->id)
+            ->orderBy('id', 'desc')
+            ->first();
+
+            $scores_count = 0;
+            $path = '';
+            if ($game_version) {
+                $path = $game_version->files_path;
+                if ($game_version->scores != null) {
+                    foreach ($game_version->scores as $g ) {
+                        $scores_count += intval($g->score);
+                    }
+                }
+            }
 
             return response()->json([
                 'slug' => $game->slug,
                 'title' => $game->title,
                 'description' => $game->description,
                 'thumbnail' => '',
-                'uploadTimestamp' => $game->uploadTimestamp,
+                'uploadTimestamp' => $game->created_at,
                 'author' => $game->user->username,
-                'scoreCount' => 0,
-                'gamePath' => ''
+                'scoreCount' => $scores_count,
+                'gamePath' => $path
             ], 200);
         } else {
             return response()->json([
@@ -72,9 +107,9 @@ class GameController extends Controller
 
     // ! change game info
     public function change(Request $request, $slug) {
-        if (Game::where('slug', $slug)->first()) {
-            $game = Game::where('slug', $slug)->first();
+        $game = Game::where('slug', $slug)->first();
 
+        if ($game) {
             if ($game->user_id == Auth::user()->id) {
                 $game->title = $request->title;
                 $game->description = $request->description;
@@ -82,19 +117,19 @@ class GameController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                ], 204);
-            } else {
-                return response()->json([
-                    "status" => "forbidden",     
-                    "message" => "You are not the game author"
-                ]);
-            }
-        } else {
+                ], 200);
+            } 
+
             return response()->json([
-                "status" => "not-found",     
-                "slug" => "Not found"
-            ], 404);
-        }
+                "status" => "forbidden",     
+                "message" => "You are not the game author"
+            ], 403);
+        } 
+
+        return response()->json([
+            "status" => "not-found",     
+            "slug" => "Not found"
+        ], 404);
     }
 
     // ! game delete
@@ -109,7 +144,7 @@ class GameController extends Controller
                 return response()->json([
                     "status" => "forbidden",     
                     "message" => "You are not the game author"
-                ]);
+                ], 403);
             }
         } else {
             return response()->json([
