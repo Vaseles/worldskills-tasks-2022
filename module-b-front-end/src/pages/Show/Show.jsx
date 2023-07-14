@@ -19,7 +19,7 @@ const Show = () => {
    const getGame = () => {
     $axios.get(`/games/${slug}`)
         .then((res) => {
-          console.log(res)
+          console.log(res.data)
           setGame(res.data)
         })
    }
@@ -33,7 +33,13 @@ const Show = () => {
 
   return (
     <div className='page'>
-      <div className={styles.game}></div>
+      <div className={styles.game}>
+        {game ? (
+          <iframe src={`http://127.0.0.1:8000${game.gamePath}`}>
+
+          </iframe>
+        ): (<></>)}
+      </div>
       <div className="buttons">
         <div className={styles.right}>
           <h3>Top 10  Leaderboard</h3>
@@ -43,7 +49,7 @@ const Show = () => {
             <div className={styles.scores}>
                 {scores.map((score, index) => 
                     <div className={styles.score} key={styles.score}>
-                        <h3># {index}  {score.username}</h3>
+                        <h3># {index+1}  {score.username}</h3>
                         <span>{score.score}</span>
                     </div>    
                 )}

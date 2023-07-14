@@ -10,3 +10,8 @@
 .score:hover {
     @apply shadow-md shadow-red-600
 }
+
+/* iframe */
+iframe {
+    @apply w-full h-full bg-white rounded-md
+}

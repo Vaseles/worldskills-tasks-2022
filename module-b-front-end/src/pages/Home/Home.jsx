@@ -7,36 +7,67 @@ import Button from '../../components/ui/Button/Button';
 const Home = () => {
     const {name} = useAuth()
     const [gamesInfo, setGamesInfo] = useState([]);
-    const [games, setGames] = useState([
-
-    ]);
+    const [games, setGames] = useState([]);
+    // for sorting
     const [sortBy, setSortBy] = useState('title')
     const [sortDir, setSortDir] = useState('asc')
 
+    // for infinite scrolling
+    const [page, setPage] = useState(1)
+    const [fetching, setFetching] = useState(true)
 
     useEffect(() => {
         document.title = 'Discover Games'
-
         getGames()
     }, [])
 
     useEffect(() => {
+        document.addEventListener('scroll', scrollHandler)
+
+        return function() {
+            document.removeEventListener('scroll', scrollHandler)
+        }
+    }, [])
+
+    // sort games
+    useEffect(() => {
         getGames()
     }, [sortBy, sortDir])
+
+    useEffect(() => {
+        if (fetching) {
+            getGames()
+        }
+    }, [fetching])
 
     const getGames = () => {
         $axios.get('/games', {
             params: {
                 sortBy: sortBy,
-                sortDir:  sortDir
+                sortDir:  sortDir,
+                page: page,
             }
         })
             .then((res) => {
-                console.log(res.data)
                 setGamesInfo(res.data)
-                setGames(res.data.content)
+                console.log(page)
+                if (page == 1 ){
+                    setGames(res.data.content)
+                } else {
+                    setGames([...games, ...res.data.content])
+                }
+                setPage(page+1)
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.error(err);
+            })
+            setFetching(false)
+    }
+
+    const scrollHandler = (e) => {
+        if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
+            setFetching(true);
+        }
     }
 
   return (
@@ -84,7 +115,7 @@ const Home = () => {
                 </>
             ): (<></>)}
         </div>
-        {games ? (
+        {games.length > 0 ? (
             <div className={styles.page__content}>
                 {games.map((game, index) => 
                     <div className={styles.game} key={index}>
