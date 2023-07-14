@@ -23,3 +23,22 @@
     @apply w-60 border-2 border-gray-700 rounded-md object-cover ;
     min-height: 70px;
 }
+.sort_dir {
+    @apply flex justify-start items-center  gap-4; 
+}
+.sort__game {
+    @apply relative flex justify-center items-center flex-col h-14;
+}
+.sort__game label {
+    @apply relative w-full flex justify-center items-center flex-col h-14 p-2 pr-4 pl-4 text-gray-700 transition-all delay-300 ease-linear;
+}
+.sort__game input {
+    @apply absolute  flex justify-center items-center flex-col appearance-none  border-2 border-gray-700 border-none h-14 rounded-md  focus:border-red-600 w-full hover:border-red-800 transition-all delay-300 ease-linear;
+    border: 2px solid rgb(55 65 81 / var(--tw-border-opacity));
+}
+.sort__game:hover label {
+    @apply text-red-800;
+}
+.sort__game input:focus + label {
+    @apply text-red-600;
+}

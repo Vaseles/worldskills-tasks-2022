@@ -10,8 +10,8 @@ const Home = () => {
     const [games, setGames] = useState([
 
     ]);
-    const [filter, setFilter] = useState('title')
-    const [desc, setDesc] = useState('asc')
+    const [sortBy, setSortBy] = useState('title')
+    const [sortDir, setSortDir] = useState('asc')
 
 
     useEffect(() => {
@@ -22,13 +22,13 @@ const Home = () => {
 
     useEffect(() => {
         getGames()
-    }, [filter, desc])
+    }, [sortBy, sortDir])
 
     const getGames = () => {
         $axios.get('/games', {
             params: {
-                sortBy: filter,
-                sortDir:  desc
+                sortBy: sortBy,
+                sortDir:  sortDir
             }
         })
             .then((res) => {
@@ -45,24 +45,40 @@ const Home = () => {
             {gamesInfo? (
                 <>
                     <span> {gamesInfo.totalElements} Games Available</span>
-                    <div className="">
-                        <div className="sort__game" >
+                    <div className={styles.sort_dir} >
+                        <div className={styles.sort__game} >
                             <label >title</label>
                             <input 
                                 type="checkbox" 
-                                onChange={( ) => setFilter('title')}   />
+                                onChange={( ) => setSortBy('title')}   />
                         </div>
-                        <div className="sort__game" >
-                            <label >title</label>
+                        <div className={styles.sort__game} >
+                            <label >uploaddate</label>
                             <input 
                                 type="checkbox" 
-                                onChange={( ) => setFilter('title')}   />
+                                onChange={( ) => setSortBy('uploaddate')}   />
                         </div>
-                        <div className="sort__game" >
-                            <label >title</label>
+                        <div 
+                            className={styles.sort__game}
+                         >
+                            <label >popular</label>
                             <input 
                                 type="checkbox" 
-                                onChange={( ) => setFilter('title')}   />
+                                onChange={( ) => setSortBy('popular')}   />
+                        </div>
+                    </div>
+                    <div className={styles.sort_dir} >
+                        <div className={styles.sort__game} >
+                            <label >asc</label>
+                            <input 
+                                type="checkbox" 
+                                onChange={( ) => setSortDir('asc')}   />
+                        </div>
+                        <div className={styles.sort__game} >
+                            <label >desc</label>
+                            <input 
+                                type="checkbox" 
+                                onChange={( ) => setSortDir('desc')}   />
                         </div>
                     </div>
                 </>

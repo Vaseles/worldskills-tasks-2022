@@ -7,7 +7,7 @@
     @apply box-border m-0 p-0 bg-transparent text-white outline-none ;
 }
 body {
-    @apply bg-black text-white font-mono text-lg overflow-x-hidden;
+    @apply bg-black text-white font-mono text-lg overflow-x-hidden ;
 }
 /* change link styles */
 a {
@@ -36,7 +36,7 @@ input {
 
 /* page */
 .page {
-    @apply pr-6 pl-6 mb-20
+    @apply pr-14 pl-14 mb-20 w-full;
 }
 
 .buttons {
