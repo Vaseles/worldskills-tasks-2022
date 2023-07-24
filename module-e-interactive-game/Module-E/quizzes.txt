@@ -1,0 +1,42 @@
+# Scene 1
+
+Question 1:
+Which is for styling?
+
+Choices:
+- HTML
+- CSS (Correct Answer)
+- JavaScript
+- PHP
+
+# Scene 2
+
+Question 2:
+Which is in <head>?
+
+Choices:
+- meta (Correct Answer)
+- body
+- div
+- textarea
+
+Question 3:
+Which is for important content?
+
+Choices:
+- b
+- bold
+- strong (Correct Answer)
+- i
+
+# Scene 3
+
+Question 4:
+Who is accessibility for?
+
+Choices:
+- Disabled people
+- Old people
+- Blind people
+- Every one (Correct Answer)
+

@@ -1,0 +1,403 @@
+/* base reset */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+body {
+    color: #202020;
+    font-size: 18px;
+    font-family: monospace;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    width: 100vw;
+    height: 100vh;
+}
+
+/* pre scene*/
+.pre__scene {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 1280px;
+    height: 720px;
+}
+
+/*scene*/
+.scene {
+    max-width: 1280px;
+    max-height: 720px;
+    position: relative;
+    display: flex;
+
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    /* background-size: cover; */
+    background-repeat: no-repeat;
+
+    animation: show .7s linear;
+}
+
+/* show animation */
+@keyframes  show {
+    0% {
+        opacity: 0;
+        margin-top: -30px;
+    }
+    100% {
+        opacity: 1;
+        margin-top: 0;
+    }
+}
+.scene * {
+    position: absolute;
+}
+
+/*  scene 1 elements */
+.fullscreen {
+    width: 205px;
+    height: 69px;
+    z-index: 8;
+    top: 20px;
+    left: 1060px;
+}
+.main {
+    width: 733px;
+    height: 424px;
+    top: 35px;
+    left: 300px;
+    z-index: 1;
+}
+.game_title {
+    width: 352px;
+    height: 68px;
+    top: 30px;
+    transform: rotate(-7deg);
+    z-index: 7;
+    left: 30px;
+}
+.tree {
+    width: 301px;
+    height: 367px;
+    z-index: 2;
+    top: 80px;
+    left: 55px;
+}
+.streen__sign {
+    width: 125px;
+    height: 127px;
+    z-index: 5;
+    top: 330px;
+    left: 40px;
+}
+.grass {
+    width: 125px;
+    height: 86px;
+    z-index: 5;
+    top: 380px;
+    left: 220px;
+}
+.grass2 {
+    width: 125px;
+    height: 86px;
+    z-index: 5;
+    top: 390px;
+    left: 915px;
+}
+.sign__next {
+    width: 138px;
+    height: 126px;
+    z-index: 6;
+    left: 1110px;
+    top: 350px;
+}
+
+/* barier */
+.barier {
+    z-index: 10;
+    top: 454px;
+    left: 1110px;
+    width: 130px;
+    height: 260px;
+}
+
+/* scenes */ 
+.scene1 {
+    display: flex;
+}
+.scene2 {
+    display: none;
+}
+.scene3 {
+    display: none;
+}
+
+/* avatar */
+.avatar {
+    width: 48px;
+    height: 94px;
+    z-index: 99;
+    position: absolute;
+    top: 440px;
+    left: 100px;
+}
+
+/* scenes content */
+.video {
+    opacity: .8;
+    width: 713px;
+    height: 404px;
+    top: 45px;
+    left: 310px;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.scene2 .main, .scene2 .video {
+    z-index: 3;
+}
+.scene2 .sun {
+    width: 180px;
+    height: 186px;
+    z-index: 7;
+    top: 10px;
+    left: 20px;
+}
+.scene2 .tree {
+    left: 130px;
+}
+.scene2 .tree2 {
+    left: 900px;
+    top: 20px;
+}
+
+.scene2 .grass {
+    left: 100px;
+    top: 380px;
+}
+.scene2 .grass2 {
+    left: 200px;
+    top: 375px;
+}
+.prev {
+    z-index: 4;
+    width: 138px;
+    height: 127px;
+    top: 330px;
+    left: 120px;
+}
+
+.moon {
+    width: 156px;
+    height: 143px;
+    z-index: 1;
+    top: 20px;
+    left: 15px;
+}
+.cloud {
+    height: 147px;
+    width: 238px;
+    z-index: 4;
+    top: 90px;
+    left: 115px;
+}
+.scene2 .barier {
+    left: 940px;
+}
+.scene2 .barier2 {
+    left: 1080px;
+}
+
+/* sceen 3 */
+.scene3 .grass {
+    left: 100px;
+    top: 380px;
+}
+.scene3 .grass2 {
+    left: 200px;
+    top: 375px;
+}
+
+/* animation */
+img:hover {
+    animation: move-move .6s linear;
+    cursor: pointer;
+}
+@keyframes move-move  {
+    0% {
+        margin-left: 0;
+        transform: rotate(0deg);
+    }
+    25% {
+        margin-left: -10px;
+        transform: rotate(-3deg);
+    }
+    50% {
+        margin-left: 0;
+        transform: rotate(0deg);
+    }
+    75% {
+        margin-left: 10px;
+        transform: rotate(3deg);
+    }
+    100% {
+        margin-left: 0;
+        transform: rotate(0deg);
+    }
+}
+
+
+/* question */
+.question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    background-color: #fff30c;
+    z-index: 100;
+
+    animation: show .6s linear;
+}
+.quesion__main {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: #fbf2c4;
+    border: 10px solid #653300;
+}
+.quesion__main img {
+    position: absolute;
+}
+
+.quesion__main .quiz {
+    width: 445px;
+    height: 82px;
+    transform: rotate(-5deg);
+    z-index: 2;
+    top: -30px;
+    left: -80px;
+}
+.quesion__main .close_button {
+    width: 87px;
+    height: 87px;
+    z-index: 99;
+
+    top: -40px;
+    left: 1220px;
+}
+.quesion__main .corner {
+    bottom: -40px;
+    left: -20px;
+    width: 145px;
+    height: 155px;
+    z-index: 3;
+    
+}
+.quesion__main .corner2 {
+  
+    bottom: -40px;
+    left: 1140px;
+    transform: rotateY(180deg);
+}
+
+/* question title */
+.question__title {
+
+}
+.question__answers {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+    row-gap: 20px;
+
+    flex-wrap: wrap;
+    margin-top: 100px;
+}
+.question__title {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 42px;
+    font-weight: bold;
+    width: 90%;
+
+}
+.question__answers div {
+    width: 45%;
+    background-color: #fff30c;
+    border: 10px solid #653300;
+    height: 120px;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-radius: 20px;
+    font-size: 32px;
+    padding: 10px 20px;
+    color: #653300;
+    font-weight: bold;
+    transition: all .3s linear;
+}
+.question__answers div:hover {
+    transform: scale(1.1);
+}
+.wrong__answer {
+    animation: wrong .3s linear infinite ;
+}
+@keyframes wrong__answer {
+    0% {
+        margin-left: 0;
+        transform: rotate(0deg);
+    }
+    25% {
+        margin-left: -10px;
+        transform: rotate(-5deg);
+    }
+    50% {
+        margin-left: 0;
+        transform: rotate(0deg);
+    }
+    75% {
+        margin-left: 10px;
+        transform: rotate(-5deg);
+    }
+    100% {
+        margin-left: 0;
+        transform: rotate(0deg);
+    }
+}
+.road {
+    position: absolute;
+    bottom: 20px;
+    height: 220px;
+    width: 94%;
+    left: 4% ;
+    background-color: rgb(0,0,0,.1);
+}
