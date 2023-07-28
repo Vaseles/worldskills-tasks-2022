@@ -27,6 +27,8 @@ const next2 = document.querySelector('#next2')
 const prev1 = document.querySelector('#prev1')
 const prev2 = document.querySelector('#prev2')
 
+let scores = 0
+
 // next
 next1.addEventListener('click', () => {
     hideScene(scene1); showScene(scene2)
@@ -43,13 +45,11 @@ prev2.addEventListener('click', () => {
     hideScene(scene3); showScene(scene2)
 })
 
-
 // keyboard
 document.addEventListener('DOMContentLoaded', () => {
     const avatar  = document.querySelector('.avatar')
 
     document.addEventListener('keydown', (e) => {
-        console.log(e.key)
 
         // get now
         let nowLeft = parseInt(avatar.style.left.slice(0, -2))
@@ -60,115 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
             avatar.style.transform = 'rotateY(0)'
             
             if (scene1.style.display == 'flex') {
-                if (nowLeft == 1080) {
-                    question.style.display = 'flex'
-                    question__title.innerHTML = 'Which is for styling?'
-                    question__answers.innerHTML =   `
-                        <div class="answer1 answer">HTML</div>
-                        <div class="answer2 answer">CSS</div>
-                        <div class="answer3 answer">JavaScript</div>
-                        <div class="answer4 answer">PHP</div>
-                    `
-                    let answers = document.querySelectorAll('.answer')
-                    console.log(answers)
-    
-                    for (const answer of answers) {
-                       answer.addEventListener('click', () => {
-                            console.log(answer.innerHTML)
-                            if (answer.innerHTML == 'JavaScript') {
-                                question.style.display = 'none'
-                            } else {
-                                answer.classList.add('wrong__answer')
-                                
-                                setTimeout(() => {
-                                    answer.classList.remove('wrong__answer')
-                                }, 300)
-                            }
-                       })
-                    }
+                if (nowLeft == 1060 && scores == 0) {
+                    task_render(['Which is for styling?', 'HTML', 'CSS', 'JavaScript', 'PHP'],'CSS' )
                 }
             } else if (scene2.style.display == 'flex') {
-                if (nowLeft == 920) {
-                    question.style.display = 'flex'
-                    question__title.innerHTML = 'Which is in <head>?'
-                    question__answers.innerHTML =   `
-                        <div class="answer1 answer">meta</div>
-                        <div class="answer2 answer">bodty</div>
-                        <div class="answer3 answer">div</div>
-                        <div class="answer4 answer">textarea</div>
-                    `
-                    let answers = document.querySelectorAll('.answer')
-                    console.log(answers)
-    
-                    for (const answer of answers) {
-                       answer.addEventListener('click', () => {
-                            console.log(answer.innerHTML)
-                            if (answer.innerHTML == 'meta') {
-                                question.style.display = 'none'
-                            } else {
-                                answer.classList.add('wrong__answer')
-                                
-                                setTimeout(() => {
-                                    answer.classList.remove('wrong__answer')
-                                }, 300)
-                            }
-                       })
-                    }
-                } else if (scene3.style.display == 'flex') {
-                    if (nowLeft == 1080) {
-                        question.style.display = 'flex'
-                        question__title.innerHTML = 'Who is accessibility for?'
-                        question__answers.innerHTML =   `
-                            <div class="answer1 answer">Disabled people</div>
-                            <div class="answer2 answer">Old people</div>
-                            <div class="answer3 answer">Blind people</div>
-                            <div class="answer4 answer">Every one</div>
-                        `
-                        let answers = document.querySelectorAll('.answer')
-                        console.log(answers)
-        
-                        for (const answer of answers) {
-                           answer.addEventListener('click', () => {
-                                console.log(answer.innerHTML)
-                                if (answer.innerHTML == 'Every one') {
-                                    question.style.display = 'none'
-                                } else {
-                                    answer.style.animation = 'wrong .3s linear infinite'
-                                    answer.style.opacity = '.7'
-                                }
-                           })
-                        }
-                    }
+                if (nowLeft == 900 && scores == 25) {
+                    task_render(['Which is in <head>?', 'meta', 'body', 'div', 'textarea'],'meta' )
+                } else if (nowLeft == 1080 && scores == 50) {
+                    task_render(['Which is for important content?', 'b', 'bold', 'strong', 'i'],'strong' )
                 }
-
-                if (nowLeft == 1060) {
-                    question.style.display = 'flex'
-                    question__title.innerHTML = 'Which is for important content?'
-                    question__answers.innerHTML =   `
-                        <div class="answer1 answer">b</div>
-                        <div class="answer2 answer">bold</div>
-                        <div class="answer3 answer">strong</div>
-                        <div class="answer4 answer">i</div>
-                    `
-                    let answers = document.querySelectorAll('.answer')
-                    console.log(answers)
-    
-                    for (const answer of answers) {
-                       answer.addEventListener('click', () => {
-                            console.log(answer.innerHTML)
-                            if (answer.innerHTML == 'strong') {
-                                question.style.display = 'none'
-                            } else {
-                                answer.classList.add('wrong__answer')
-                                
-                                setTimeout(() => {
-                                    answer.classList.remove('wrong__answer')
-                                }, 300)
-                            }
-                       })
-                    }
+            } else if (scene3.style.display == 'flex') {
+                if (nowLeft == 1060 && scores == 75) {
+                    task_render(['Who is accessibility for?', 'Disabled people', 'Old people', 'Blind people', 'Every one'],'Every one' )
                 }
-            } 
+            }
 
             // SHOW | HIDE SCENE
             if (nowLeft > 1200) {
@@ -212,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if ( e.key == 'ArrowUp')  {    
             // TODO: UP
             if (nowTop > 400) {
-                console.log(nowTop)
                 avatar.style.top = `${nowTop  - 10}px`
             } else {
                 avatar.style.top = nowTop
@@ -228,11 +132,27 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     // document.querySelector('.road').addEventListener('click', (e) => {
-    //     console.log(e)
-    
     //     avatar.style.left = `${e.layerX}px`
     //     avatar.style.top = `${400 + e.layerY}px`
     // })
+
+    /* open barier */
+    const bariers = document.querySelectorAll('.barier')
+
+    for (let i = 0; i < bariers.length; i++) {
+        console.log(i)
+        bariers[i].addEventListener('click', () => {
+            if (i == 0 && scores == 0) {
+                task_render(['Which is for styling?', 'HTML', 'CSS', 'JavaScript', 'PHP'],'CSS' )
+            } else if (i == 1 &&scores == 25) {
+                task_render(['Which is in <head>?', 'meta', 'body', 'div', 'textarea'],'meta' )
+            } else if (i == 2 &&scores == 50) {
+                task_render(['Which is for important content?', 'b', 'bold', 'strong', 'i'],'strong' )
+            } else if (i == 3 &&scores == 75) {
+                task_render(['Who is accessibility for?', 'Disabled people', 'Old people', 'Blind people', 'Every one'],'Every one' )
+            }
+        })
+    }
 })
 
 
@@ -270,4 +190,36 @@ function choiceCorrectAnswer(correctAnswers) {
             }
        })
     }
+}
+
+function task_render(massive, true_answer) {
+    question.style.display = 'flex'
+    question__title.innerHTML = massive[0]
+    question__answers.innerHTML =   `
+        <div class="answer1 answer">${massive[1]}</div>
+        <div class="answer2 answer">${massive[2]}</div>
+        <div class="answer3 answer">${massive[3]}</div>
+        <div class="answer4 answer">${massive[4]}</div>
+    `
+    let answers = document.querySelectorAll('.answer')
+
+    for (const answer of answers) {
+        answer.addEventListener('click', () => {
+            if (answer.innerHTML == true_answer) {
+                question.style.display = 'none'
+                scores += 25
+            } else {
+                console.log(`${ answer.innerHTML}`)
+        }
+    })
+    }
+}
+
+const audio = document.querySelector('audio')
+const images = document.querySelectorAll('img')
+
+for (const image of images) {
+    image.addEventListener('click', () => {
+        audio.play()
+    })
 }
