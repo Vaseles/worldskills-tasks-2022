@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             avatar.style.transform = 'rotateY(0)'
             
             if (scene1.style.display == 'flex') {
-                if (nowLeft == 1060 && scores == 0) {
+                if (nowLeft >= 1060 && nowLeft <=1070 && scores == 0) {
                     task_render(['Which is for styling?', 'HTML', 'CSS', 'JavaScript', 'PHP'],'CSS' )
                 }
             } else if (scene2.style.display == 'flex') {
@@ -129,12 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 avatar.style.top = nowTop
             }
         }
-    })
 
-    // document.querySelector('.road').addEventListener('click', (e) => {
-    //     avatar.style.left = `${e.layerX}px`
-    //     avatar.style.top = `${400 + e.layerY}px`
-    // })
+        document.querySelector('.road').addEventListener('click', (e) => {
+            avatar.style.left = `${e.layerX}px`
+            avatar.style.top = `${400 + e.layerY}px`
+        })
+    })
 
     /* open barier */
     const bariers = document.querySelectorAll('.barier')
@@ -209,7 +209,15 @@ function task_render(massive, true_answer) {
                 question.style.display = 'none'
                 scores += 25
             } else {
-                console.log(`${ answer.innerHTML}`)
+                answer.style.margin = '0 30px 0 0'
+
+                setTimeout(() => {
+                    answer.style.margin = '0 0 0 30px'
+                }, 300)
+
+                setTimeout(() => {
+                    answer.style.margin = '0 0 0 0'
+                }, 600)
         }
     })
     }

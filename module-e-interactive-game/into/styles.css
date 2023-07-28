@@ -368,7 +368,7 @@ img:hover {
     transition: all .3s linear;
 }
 .question__answers div:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 .wrong__answer {
     animation: wrong .3s linear infinite ;
